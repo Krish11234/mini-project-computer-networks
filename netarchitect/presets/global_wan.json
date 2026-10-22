@@ -1,0 +1,37 @@
+{
+  "scenario_name": "Global WAN – 4-City Enterprise + Cloud VPC",
+  "scale": "Global WAN",
+  "root_network": "192.168.0.0/16",
+  "num_sites": 4,
+  "is_multi_as": true,
+  "cloud_vpc_connected": true,
+  "subnet_requirements": [
+    {"name": "London-DC Servers",       "required_hosts": 200, "vlan_id": 10, "description": "London data centre compute and storage"},
+    {"name": "London-Office Users",     "required_hosts": 150, "vlan_id": 11, "description": "London office end-user workstations"},
+    {"name": "NewYork-DC Servers",      "required_hosts": 180, "vlan_id": 20, "description": "New York data centre compute"},
+    {"name": "NewYork-Office Users",    "required_hosts": 120, "vlan_id": 21, "description": "New York office end-user workstations"},
+    {"name": "Tokyo-DC Servers",        "required_hosts": 100, "vlan_id": 30, "description": "Tokyo data centre compute"},
+    {"name": "Tokyo-Office Users",      "required_hosts": 80,  "vlan_id": 31, "description": "Tokyo office end-user workstations"},
+    {"name": "Singapore-IoT Scanners",  "required_hosts": 500, "vlan_id": 40, "description": "Singapore IoT scanner fleet"},
+    {"name": "Singapore-Office Users",  "required_hosts": 60,  "vlan_id": 41, "description": "Singapore office workstations"},
+    {"name": "AWS VPC Workloads",       "required_hosts": 250, "vlan_id": 100, "description": "AWS Transit Gateway connected workloads"},
+    {"name": "Azure VNet Workloads",    "required_hosts": 200, "vlan_id": 101, "description": "Azure ExpressRoute connected workloads"},
+    {"name": "Global VoIP",             "required_hosts": 80,  "vlan_id": 60, "description": "Global voice VLAN"},
+    {"name": "Management VLAN",         "required_hosts": 30,  "vlan_id": 99, "description": "Network device management across all sites"}
+  ],
+  "links": [
+    {"link_id": "W1-LON-Core-to-LON-Dist",     "source_node": "LON-Core-RTR",  "destination_node": "LON-Dist-SW1",   "distance_m": 50},
+    {"link_id": "W2-LON-Dist-to-LON-Acc",       "source_node": "LON-Dist-SW1", "destination_node": "LON-Acc-SW1",    "distance_m": 35},
+    {"link_id": "W3-NYC-Core-to-NYC-Dist",      "source_node": "NYC-Core-RTR", "destination_node": "NYC-Dist-SW1",   "distance_m": 40},
+    {"link_id": "W4-NYC-Dist-to-NYC-Acc",        "source_node": "NYC-Dist-SW1", "destination_node": "NYC-Acc-SW1",    "distance_m": 30},
+    {"link_id": "W5-TKY-Core-to-TKY-Dist",      "source_node": "TKY-Core-RTR", "destination_node": "TKY-Dist-SW1",   "distance_m": 55},
+    {"link_id": "W6-TKY-Dist-to-TKY-Acc",        "source_node": "TKY-Dist-SW1", "destination_node": "TKY-Acc-SW1",    "distance_m": 25},
+    {"link_id": "W7-SGP-Core-to-SGP-Dist",      "source_node": "SGP-Core-RTR", "destination_node": "SGP-Dist-SW1",   "distance_m": 45},
+    {"link_id": "W8-SGP-Dist-to-SGP-Acc",        "source_node": "SGP-Dist-SW1", "destination_node": "SGP-Acc-SW1",    "distance_m": 20},
+    {"link_id": "W9-LON-to-NYC-WAN",             "source_node": "LON-Core-RTR", "destination_node": "NYC-Core-RTR",   "distance_m": 5570000},
+    {"link_id": "W10-NYC-to-TKY-WAN",            "source_node": "NYC-Core-RTR", "destination_node": "TKY-Core-RTR",   "distance_m": 10850000},
+    {"link_id": "W11-TKY-to-SGP-WAN",            "source_node": "TKY-Core-RTR", "destination_node": "SGP-Core-RTR",   "distance_m": 5300000},
+    {"link_id": "W12-LON-to-AWS-VPC",             "source_node": "LON-Core-RTR", "destination_node": "AWS-TGW",        "distance_m": 1000},
+    {"link_id": "W13-NYC-to-Azure-VNet",          "source_node": "NYC-Core-RTR", "destination_node": "Azure-ER-GW",    "distance_m": 1500}
+  ]
+}

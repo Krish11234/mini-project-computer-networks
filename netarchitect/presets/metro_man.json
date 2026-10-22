@@ -1,0 +1,28 @@
+{
+  "scenario_name": "Metro MAN – FinTech HQ + 2 Branch Sites",
+  "scale": "Metro MAN",
+  "root_network": "172.16.0.0/18",
+  "num_sites": 3,
+  "is_multi_as": false,
+  "cloud_vpc_connected": false,
+  "subnet_requirements": [
+    {"name": "HQ Trading Floor",    "required_hosts": 100, "vlan_id": 10, "description": "Ultra-low-latency trading desks at HQ"},
+    {"name": "HQ Back Office",      "required_hosts": 80,  "vlan_id": 20, "description": "Back-office compliance and ops"},
+    {"name": "HQ Server/Colo",      "required_hosts": 40,  "vlan_id": 30, "description": "Co-location rack and on-prem compute"},
+    {"name": "Branch-1 Operations", "required_hosts": 60,  "vlan_id": 40, "description": "Branch site 1 – operations staff"},
+    {"name": "Branch-1 Guest",      "required_hosts": 20,  "vlan_id": 41, "description": "Branch site 1 – isolated guest WiFi"},
+    {"name": "Branch-2 Operations", "required_hosts": 50,  "vlan_id": 50, "description": "Branch site 2 – operations staff"},
+    {"name": "Branch-2 Guest",      "required_hosts": 15,  "vlan_id": 51, "description": "Branch site 2 – isolated guest WiFi"},
+    {"name": "VoIP All Sites",      "required_hosts": 70,  "vlan_id": 60, "description": "Voice VLAN spanning all 3 sites"},
+    {"name": "Management VLAN",     "required_hosts": 15,  "vlan_id": 99, "description": "Device management interfaces"}
+  ],
+  "links": [
+    {"link_id": "M1-HQ-Core-to-HQ-Dist",      "source_node": "HQ-Core-RTR",  "destination_node": "HQ-Dist-SW1",    "distance_m": 15},
+    {"link_id": "M2-HQ-Dist-to-HQ-Acc1",      "source_node": "HQ-Dist-SW1",  "destination_node": "HQ-Acc-SW1",     "distance_m": 30},
+    {"link_id": "M3-HQ-Dist-to-HQ-Acc2",      "source_node": "HQ-Dist-SW1",  "destination_node": "HQ-Acc-SW2",     "distance_m": 45},
+    {"link_id": "M4-HQ-Core-to-Branch1",       "source_node": "HQ-Core-RTR",  "destination_node": "BR1-Edge-RTR",   "distance_m": 15000},
+    {"link_id": "M5-HQ-Core-to-Branch2",       "source_node": "HQ-Core-RTR",  "destination_node": "BR2-Edge-RTR",   "distance_m": 35000},
+    {"link_id": "M6-BR1-Edge-to-BR1-SW",       "source_node": "BR1-Edge-RTR", "destination_node": "BR1-Acc-SW1",    "distance_m": 20},
+    {"link_id": "M7-BR2-Edge-to-BR2-SW",       "source_node": "BR2-Edge-RTR", "destination_node": "BR2-Acc-SW1",    "distance_m": 25}
+  ]
+}

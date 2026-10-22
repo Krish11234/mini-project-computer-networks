@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetArchitect — Network Design Dashboard</title>
+    <meta name="description" content="Algorithmic Network Planning & Self-Explaining Architecture Engine. Design campus LANs, metro MANs, and global WANs with automated VLSM, media selection, and Cisco IOS config generation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo-group">
+                <span class="logo-icon">🏗️</span>
+                <div>
+                    <h1>NetArchitect</h1>
+                    <p class="subtitle">Algorithmic Network Planning Engine</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <button class="nav-btn active" data-section="design" id="nav-design">Design</button>
+                <button class="nav-btn" data-section="results" id="nav-results">Results</button>
+                <button class="nav-btn" data-section="config" id="nav-config">Config</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="app-main">
+
+        <section class="section active" id="section-design">
+            <div class="card glass">
+                <h2 class="card-title">🎯 Select a Scenario</h2>
+                <div class="preset-grid" id="preset-grid">
+                    <!-- Dynamically filled -->
+                </div>
+            </div>
+
+            <div class="card glass" id="scenario-detail" style="display:none;">
+                <h2 class="card-title">📋 Scenario Details</h2>
+                <div class="scenario-meta" id="scenario-meta"></div>
+                <h3>Subnet Requirements</h3>
+                <div class="table-wrap">
+                    <table id="subnet-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th><th>VLAN</th><th>Required Hosts</th><th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subnet-tbody"></tbody>
+                    </table>
+                </div>
+                <div class="action-bar">
+                    <button class="btn btn-primary btn-glow" id="btn-run-design">
+                        ⚡ Run Design Pipeline
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="section-results">
+            <div class="results-grid">
+                <!-- VLSM -->
+                <div class="card glass full-width">
+                    <h2 class="card-title">📊 VLSM Subnet Allocations</h2>
+                    <div class="table-wrap">
+                        <table id="vlsm-table">
+                            <thead>
+                                <tr>
+                                    <th>Subnet</th><th>VLAN</th><th>CIDR</th><th>Mask</th>
+                                    <th>Wildcard</th><th>Gateway</th><th>Broadcast</th>
+                                    <th>Hosts</th><th>Capacity</th><th>Efficiency</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vlsm-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="stat-bar" id="vlsm-stats"></div>
+                </div>
+
+                <!-- Media -->
+                <div class="card glass full-width">
+                    <h2 class="card-title">🔌 Physical Media Decisions</h2>
+                    <div class="table-wrap">
+                        <table id="media-table">
+                            <thead>
+                                <tr>
+                                    <th>Link</th><th>Distance</th><th>Medium</th>
+                                    <th>Transceiver</th><th>Max Reach</th><th>Standard</th>
+                                </tr>
+                            </thead>
+                            <tbody id="media-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Optical Budgets -->
+                <div class="card glass full-width" id="optical-card" style="display:none;">
+                    <h2 class="card-title">🔬 Optical Link Budgets</h2>
+                    <div class="table-wrap">
+                        <table id="optical-table">
+                            <thead>
+                                <tr>
+                                    <th>Link</th><th>Distance (km)</th><th>Total Loss (dB)</th>
+                                    <th>Margin (dB)</th><th>Viable</th>
+                                </tr>
+                            </thead>
+                            <tbody id="optical-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Routing -->
+                <div class="card glass full-width">
+                    <h2 class="card-title">🌐 Routing Protocol Decision</h2>
+                    <div id="routing-info"></div>
+                </div>
+
+                <!-- Rationales -->
+                <div class="card glass full-width">
+                    <h2 class="card-title">📝 Engineering Rationales</h2>
+                    <div class="rationale-list" id="rationale-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="section-config">
+            <div class="card glass full-width">
+                <h2 class="card-title">⚙️ Cisco IOS Configuration</h2>
+                <div class="config-actions">
+                    <button class="btn btn-secondary" id="btn-copy-config">📋 Copy to Clipboard</button>
+                    <button class="btn btn-secondary" id="btn-download-config">⬇️ Download .cfg</button>
+                </div>
+                <pre class="config-block"><code id="config-output">Run a design to generate configuration…</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loading-overlay" style="display:none;">
+        <div class="spinner"></div>
+        <p>Running NetArchitect pipeline…</p>
+    </div>
+
+    <footer class="app-footer">
+        <p>NetArchitect v0.1.0 • CIC-307 Computer Networks Mini-Project</p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
